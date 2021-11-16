@@ -3,8 +3,10 @@ package com.zzangnet.IvrTest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import pl.polidea.apphance.Apphance;
 
@@ -34,5 +36,67 @@ public class MainActivity extends AppCompatActivity {
 
         controller = new Controller(this);
 
+        stateButton = (Button)this.findViewById(R.id.stateButton);
+        stateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.changeState();
+            }
+        });
+
+        clearButton = (Button)this.findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                controller.clear();
+            }
+        });
+
+        spectrumView = new SpectrumView();
+        spectrumView.setImageView((ImageView) this.findViewById(R.id.spectrum));
+
+        recognizeredEditText = (EditText)this.findViewById(R.id.recognizeredText);
+        recognizeredEditText.setFocusable(false);
+
+        numKeyboard = new NumericKeyboard();
+        numKeyboard.add('0', (Button)findViewById(R.id.button0));
+        numKeyboard.add('1', (Button)findViewById(R.id.button1));
+        numKeyboard.add('2', (Button)findViewById(R.id.button2));
+        numKeyboard.add('3', (Button)findViewById(R.id.button3));
+        numKeyboard.add('4', (Button)findViewById(R.id.button4));
+        numKeyboard.add('5', (Button)findViewById(R.id.button5));
+        numKeyboard.add('6', (Button)findViewById(R.id.button6));
+        numKeyboard.add('7', (Button)findViewById(R.id.button7));
+        numKeyboard.add('8', (Button)findViewById(R.id.button8));
+        numKeyboard.add('9', (Button)findViewById(R.id.button9));
+        numKeyboard.add('0', (Button)findViewById(R.id.button0));
+        numKeyboard.add('#', (Button)findViewById(R.id.buttonHash));
+        numKeyboard.add('*', (Button)findViewById(R.id.buttonAsterisk));
+
+        setEnabled(false);
+
+        recognizeredText = "";
+
+        history = new History(this);
+        history.load();
+
     }
+
+    public void start()
+    {
+        stateButton.setText(R.string.stop);
+        setEnabled(true);
+    }
+
+    public void stop()
+    {
+        history.add(recognizeredText);
+
+        stateButton.setText(R.string.start);
+        setEnabled(false);
+    }
+
+
+
+
+
 }
