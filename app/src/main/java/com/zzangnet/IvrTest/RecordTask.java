@@ -49,7 +49,6 @@ public class RecordTask extends AsyncTask<Void, Object, Void> {
 
         audioRecord.stop();
 
-
         return null;
     }
 }

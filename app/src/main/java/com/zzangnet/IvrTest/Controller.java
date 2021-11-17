@@ -44,6 +44,38 @@ public class Controller
         }
     }
 
+    public void clear() {
+        mainActivity.clearText();
+    }
 
+    public boolean isStarted() {
+        return started;
+    }
+
+    public int getAudioSource()
+    {
+        return mainActivity.getAudioSource();
+    }
+
+    public void spectrumReady(Spectrum spectrum)
+    {
+        mainActivity.drawSpectrum(spectrum);
+    }
+
+    public void keyReady(char key)
+    {
+        mainActivity.setAciveKey(key);
+
+        if(key != ' ')
+            if(lastValue != key)
+                mainActivity.addText(key);
+
+        lastValue = key;
+    }
+
+    public void debug(String text)
+    {
+        mainActivity.setText(text);
+    }
 
 }
